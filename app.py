@@ -93,7 +93,8 @@ def bgr_to_rgb(image_bgr: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
 
 def main() -> None:
-    st.title("Constellation Detection and Star-Keypoint Viewer")
+    st.title("My Star Sign")
+    st.subheader("see what the star say to us...")
     # ... (giữ nguyên phần Sidebar của bạn) ...
     with st.sidebar:
         st.header("Settings")
