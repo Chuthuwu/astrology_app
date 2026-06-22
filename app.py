@@ -6,10 +6,10 @@ from utils import get_zodiac_result
 
 from pathlib import Path
 from typing import Iterable
-
+import streamlit as st
 import cv2
 import numpy as np
-import streamlit as st
+
 from PIL import Image
 from ultralytics import YOLO
 
@@ -94,7 +94,8 @@ def bgr_to_rgb(image_bgr: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
 
 def main() -> None:
-    st.title("Constellation Detection and Star-Keypoint Viewer")
+    st.title("My Star Sign")
+    st.subheader("See how the stars talk to us ✨🔭")
     # ... (giữ nguyên phần Sidebar của bạn) ...
     with st.sidebar:
         st.header("Settings")
