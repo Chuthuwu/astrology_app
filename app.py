@@ -6,19 +6,69 @@ from utils import get_zodiac_result
 
 from pathlib import Path
 from typing import Iterable
-import streamlit as st
+
 import cv2
 import numpy as np
-
+import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
+from datetime import date
 
 st.set_page_config(
-    page_title="My Star Sign",
+    page_title="Constellation Detection + Star Keypoints",
     page_icon="✨",
     layout="wide",
 )
+st.markdown(
+    """
+    <style>
 
+    .stApp {
+        background-image: url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564");
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0,0,0,0.85);
+    }
+
+    .main {
+        background-color: rgba(0,0,0,0.55);
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+    color: white !important;
+    }
+
+    p {
+        color: white !important;
+    }
+
+    label {
+        color: white !important;
+    }
+    /* ===== Calendar Dark Theme ===== */
+
+    div[data-baseweb="calendar"] {
+        background-color: #111111 !important;
+    }
+
+    div[data-baseweb="calendar"] * {
+        color: white !important;
+    }
+
+    div[data-baseweb="calendar"] button[aria-selected="true"] {
+        background-color: #00BFFF !important;
+        color: white !important;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 def load_yolo_model(model_path: str) -> YOLO:
     "Load and cache the custom YOLO model."
     path = Path(model_path).expanduser()
@@ -93,11 +143,33 @@ def bgr_to_rgb(image_bgr: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
 
 def main() -> None:
-    st.title("My Star Sign")
-    st.subheader("See how the stars talk to us ✨🔭")
+    st.title("🌌 My Star Sign")
+
+    st.markdown(
+    """
+    <h4 style='color:white'>
+    See what the stars say to us...
+    </h4>
+    """,
+    unsafe_allow_html=True
+    )
+    st.markdown("---")
+    st.markdown(
+        "### 🌟 Enter Your Birthday "
+    )
+
+    birth_date = st.date_input(
+    "",
+    value=date(2000, 1, 1)
+    )
+
+    birth_month = birth_date.month
+    birth_day = birth_date.day
+
+    st.markdown("---")
     # ... (giữ nguyên phần Sidebar của bạn) ...
     with st.sidebar:
-        st.header("Settings")
+        st.header("⚙️ Detection Settings")
         model_path = st.text_input("YOLO model path", value="models/best.pt")
         confidence = st.slider("YOLO confidence threshold", 0.05, 0.95, 0.25, 0.05)
         max_stars = st.slider("Maximum stars per detection", 3, 50, 20, 1)
@@ -106,10 +178,9 @@ def main() -> None:
         max_star_area = st.number_input("Maximum star area (pixels)", 2, 2000, 150, 5)
         show_keypoints = st.checkbox("Show detected star centers", value=True)
         st.markdown("---")
-        birth_month = st.number_input("Birth Month", 1, 12, 1)
-        birth_day = st.number_input("Birth Day", 1, 31, 1)
+        
 
-    uploaded_file = st.file_uploader("Upload a night-sky image", type=["jpg", "jpeg", "png", "webp"])
+    uploaded_file = st.file_uploader("🌌 Upload a night-sky image", type=["jpg", "jpeg", "png", "webp"])
     if uploaded_file is None:
         st.info("Upload an image to begin.")
         return
@@ -159,6 +230,21 @@ def main() -> None:
             st.info(zodiac_result["birth_mismatch_msg"])
 
         st.markdown("---")
+        # ==================================
+# USER ZODIAC PROFILE
+# ==================================
+
+        st.markdown("---")
+
+        st.markdown(
+            f"## 🔮 Your Zodiac Profile ({zodiac_result['birth_sign']})"
+        )
+
+        st.write(
+            "The following characteristics are based on your birthday and zodiac sign."
+        )
+
+        st.markdown("---")
         st.subheader("Traits"); st.write(", ".join(zodiac_result["traits"]))
         st.subheader("Strengths"); st.write(", ".join(zodiac_result["strengths"]))
         st.subheader("Weaknesses"); st.write(", ".join(zodiac_result["weaknesses"]))
@@ -171,6 +257,21 @@ def main() -> None:
         st.write(f"Suggested Activity: {zodiac_result['activity']}")
 
         st.markdown("---")
+
+        st.markdown(
+            f"## 🌌 About the {zodiac_result['detected_sign']} Constellation"
+        )
+
+        st.write(
+            f"You were born under {zodiac_result['birth_sign']}, "
+            f"while the constellation detected in tonight's sky is "
+            f"{zodiac_result['detected_sign']}. "
+            f"Let's explore the story behind this celestial pattern."
+        )
+
+        st.markdown("---")
+
+        
 
         st.subheader("Astronomical Background")
         st.write(zodiac_result["astronomy_fact"])
