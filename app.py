@@ -216,83 +216,168 @@ def main() -> None:
             detection_rows.append({"Detection": len(detection_rows)+1, "Constellation": class_name, "Confidence": round(float(score), 4), "Detected star centers": len(star_points)})
 
     # Hiển thị kết quả
-    st.image(bgr_to_rgb(annotated))
+        st.image(bgr_to_rgb(annotated))
     
     # ĐÃ SỬA LỖI THỤT LỀ Ở ĐÂY:
     if zodiac_result is not None:
-        st.subheader("Personal Zodiac Report")
-        st.write(f"Detected Constellation: {zodiac_result['detected_sign']}")
-        st.write(f"Birth Zodiac Sign: {zodiac_result['birth_sign']}")
+
+    # =====================================
+    # COSMIC CONNECTION
+    # =====================================
+
+        st.markdown( "## ✨ Cosmic Connection")
+
+        st.write(
+            f"**Detected Constellation:** "
+            f"{zodiac_result['detected_sign']}"
+        )
+
+        st.write(
+            f"**Your Zodiac Sign:** "
+            f"{zodiac_result['birth_sign']}"
+        )
 
         if zodiac_result["is_birth_match"]:
-            st.success(zodiac_result["birth_match_msg"])
+
+            st.success(
+                zodiac_result["birth_match_msg"]
+            )
+
         else:
-            st.info(zodiac_result["birth_mismatch_msg"])
+
+            st.info(
+                zodiac_result["birth_mismatch_msg"]
+            )
 
         st.markdown("---")
-        # ==================================
-# USER ZODIAC PROFILE
-# ==================================
 
-        st.markdown("---")
+    # =====================================
+    # ABOUT YOU
+    # =====================================
 
         st.markdown(
-            f"## 🔮 Your Zodiac Profile ({zodiac_result['birth_sign']})"
+            f"## 🧑 About You "
+            f"({zodiac_result['birth_sign']})"
         )
 
-        st.write(
-            "The following characteristics are based on your birthday and zodiac sign."
+        with st.expander(
+            "✨ Traits"
+        ):
+            st.write(
+                ", ".join(
+                    zodiac_result["traits"]
+                )
+        )
+
+        with st.expander(
+            "💪 Strengths"
+        ):
+            st.write(
+                ", ".join(
+                    zodiac_result["strengths"]
+                )
+        )
+
+        with st.expander(
+            "⚠️ Weaknesses"
+        ):
+            st.write(
+                ", ".join(
+                    zodiac_result["weaknesses"]
+                )
+        )
+
+        with st.expander(
+            "💕 Compatible Signs"
+        ):
+            st.write(
+                ", ".join(
+                    zodiac_result["compatible_with"]
+                )
+        )
+
+        with st.expander(
+            "🔮 Daily Guidance"
+        ):
+
+            st.write(
+                f"**Lucky Color:** "
+                f"{zodiac_result['lucky_color']}"
+        )
+
+            st.write(
+                f"**Recommended Food:** "
+                f"{zodiac_result['recommended_food']}"
+        )
+
+            st.write(
+                f"**Suggested Activity:** "
+                f"{zodiac_result['activity']}"
+        )
+
+            st.write(
+                f"**Daily Horoscope:** "
+                f"{zodiac_result['daily_message']}"
         )
 
         st.markdown("---")
-        st.subheader("Traits"); st.write(", ".join(zodiac_result["traits"]))
-        st.subheader("Strengths"); st.write(", ".join(zodiac_result["strengths"]))
-        st.subheader("Weaknesses"); st.write(", ".join(zodiac_result["weaknesses"]))
-        st.subheader("Compatible Signs"); st.write(", ".join(zodiac_result["compatible_with"]))
-        st.markdown("---")
-        st.subheader("Daily Guidance")
-        st.write(f"Lucky Color: {zodiac_result['lucky_color']}")
-        st.write(f"Daily Horoscope: {zodiac_result['daily_message']}")
-        st.write(f"Recommended Food: {zodiac_result['recommended_food']}")
-        st.write(f"Suggested Activity: {zodiac_result['activity']}")
 
-        st.markdown("---")
+    # =====================================
+    # ABOUT TONIGHT'S SKY
+    # =====================================
 
         st.markdown(
-            f"## 🌌 About the {zodiac_result['detected_sign']} Constellation"
+            f"## 🔭 About Tonight's Sky "
+            f"({zodiac_result['detected_sign']})"
         )
 
-        st.write(
-            f"You were born under {zodiac_result['birth_sign']}, "
-            f"while the constellation detected in tonight's sky is "
-            f"{zodiac_result['detected_sign']}. "
-            f"Let's explore the story behind this celestial pattern."
+        with st.expander(
+        "🌠 Astronomical Background"
+        ):
+            st.write(
+                zodiac_result["astronomy_fact"]
         )
 
-        st.markdown("---")
+        with st.expander(
+            "⭐ Brightest Star"
+        ):
+            st.write(
+                zodiac_result["brightest_star"]
+        )
 
-        
+        with st.expander(
+            "📖 Constellation Story"
+        ):
+            st.write(
+                zodiac_result["story"]
+        )
 
-        st.subheader("Astronomical Background")
-        st.write(zodiac_result["astronomy_fact"])
+        with st.expander(
+            "🏛️ Mythology"
+        ):
+            st.write(
+                zodiac_result["mythology"]
+        )
 
-        st.subheader("Brightest Star")
-        st.write(zodiac_result["brightest_star"])
+        with st.expander(
+            "🎉 Fun Fact"
+        ):
+            st.write(
+                zodiac_result["fun_fact"]
+        )
 
-        st.subheader("Constellation Story")
-        st.write(zodiac_result["story"])
+        with st.expander(
+            "🌌 Seen in the Sky Tonight"
+        ):
+            st.info(
+                zodiac_result["seen_in_sky_msg"]
+        )
 
-        st.subheader("Mythology")
-        st.write(zodiac_result["mythology"])
-
-        st.subheader("Fun Fact")
-        st.write(zodiac_result["fun_fact"])
-
-        st.subheader("Seen in the Sky Tonight")
-        st.info(zodiac_result["seen_in_sky_msg"])
-        # ... thêm các thông tin còn lại vào đây ...
     else:
-        st.error("No zodiac information found for the detected constellation.")
+
+        st.error(
+            "No zodiac information found for the detected constellation."
+        )
 
 if __name__ == "__main__":
     main()

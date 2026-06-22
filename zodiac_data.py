@@ -303,8 +303,8 @@ ZODIAC_DATA = {
             "Leo"
             ], 
         "fun_fact": " Libra is the only zodiac constellation represented by an object rather than an animal or a human figure.",
-        "birth_match_msg": " The detected constellation matches your zodiac sign, creating a special celestial connection. ",
-        "birth_mismatch_msg": " Although the detected constellation differs from your birth sign, both constellations offer unique guidance and inspiration. ", 
+        "birth_match_msg": " ",
+        "birth_mismatch_msg": " ", 
         "seen_in_sky_msg": " Tonight, Libra balances the heavens, symbolizing harmony, fairness, and meaningful relationships.",
         "traits": ["Balanced", "Diplomatic", "Fair"],
         "lucky_colors": ["Blue", "Pink", "White"],
