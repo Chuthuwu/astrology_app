@@ -15,7 +15,6 @@ from ultralytics import YOLO
 
 st.set_page_config(
     page_title="My Star Sign",
-   
     page_icon="✨",
     layout="wide",
 )
