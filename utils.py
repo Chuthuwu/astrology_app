@@ -181,16 +181,25 @@ def get_zodiac_result(
         ),
 
     "birth_match_msg":
-        detected_data.get(
-            "birth_match_msg",
-            ""
+        (
+            f"🌟 Wow! What are the odds?\n\n"
+            f"The constellation shining above you tonight is "
+            f"{detected_data['name']}, and it perfectly matches "
+            f"your zodiac sign.\n\n"
+            f"It's as if the universe has chosen tonight to send "
+            f"you a special message through the stars. ✨"
         ),
 
     "birth_mismatch_msg":
-        detected_data.get(
-            "birth_mismatch_msg",
-            ""
-        ),
+        (
+            f"🔭 The sky has a surprise for you tonight!\n\n"
+            f"You were born under "
+            f"{ZODIAC_DATA[birth_sign]['name']}, "
+            f"but {detected_data['name']} is shining above you now.\n\n"
+            f"Perhaps the universe is encouraging you to explore "
+            f"qualities beyond your usual path."
+        )
+
 }
 
     return result
