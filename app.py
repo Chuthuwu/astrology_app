@@ -14,7 +14,8 @@ from PIL import Image
 from ultralytics import YOLO
 
 st.set_page_config(
-    page_title="Constellation Detection + Star Keypoints",
+    page_title="My Star Sign",
+    subheader="see how the stars talk to us",
     page_icon="✨",
     layout="wide",
 )
