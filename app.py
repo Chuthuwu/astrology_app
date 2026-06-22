@@ -94,7 +94,7 @@ def bgr_to_rgb(image_bgr: np.ndarray) -> np.ndarray:
 
 def main() -> None:
     st.title("My Star Sign")
-    st.subheader("see what the star say to us...")
+    st.subheader("see what the stars say to us...")
     # ... (giữ nguyên phần Sidebar của bạn) ...
     with st.sidebar:
         st.header("Settings")
